@@ -1,6 +1,7 @@
 const express = require('express'); 
 const app = express(); //Config para carregar o express
 const routes = require('./routes')
+const path = require('path')
 
 //Express ajuda a trabalhar nas rotas da aplicação
 // CRUD -> CREATE, READ, UPDATE, DELETE
@@ -15,6 +16,9 @@ app.use(
         }
     )
 );
+app.set('views', './src/views');
+app.set('view engine', 'ejs')
+
 app.use(routes);
 
 /*
