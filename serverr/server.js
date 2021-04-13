@@ -1,5 +1,6 @@
 const express = require('express'); 
 const app = express(); //Config para carregar o express
+const routes = require('./routes')
 
 //Express ajuda a trabalhar nas rotas da aplicação
 // CRUD -> CREATE, READ, UPDATE, DELETE
@@ -14,8 +15,9 @@ app.use(
         }
     )
 );
+app.use(routes);
 
-
+/*
 app.get('/', (req, res) => { //O cliente faz uma requisição o servidor entrega uma resposta
     //O name do input é como a chave do objeto
     res.send(`
