@@ -1,7 +1,9 @@
 
 exports.paginaInicial = (req, res) => {
-        req.session.usuario = {nome: 'Luiz', logado: true}
-        res.render('index');
+        res.render('index', {
+            titulo: 'Este será o título da página',
+            numeros: [0,1,2,3,4,5,6,7,78,9]
+        });
         return;
         
 };
