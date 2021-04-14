@@ -1,29 +1,29 @@
-require('dotenv').config()
+require('dotenv').config()//Arquivos privados do desenvolvedor
 
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose')
-
+const mongoose = require('mongoose')//Modelagem da base de dados
 mongoose.connect(process.env.CONNECTIONSTRING, {useNewUrlParser: true, useUnifiedTopology: true})
 .then(() =>{
   app.emit('pronto')
 })
-.catch(e => console.log(e))
+.catch(e => console.log(e));
 
-const session = require('express-session');
-const MongoStore = require('connect-mongo');
-const flash = require('connect-flash');
-const routes = require('./routes');
-const path = require('path');
-const helmet = require('helmet')
-const csrf = require('csurf')
-const {middlewareGlobal, checkCsrfError, csrfMiddleware }= require('./src/middlewares/middleware')
+const session = require('express-session'); //Identificar navegador do cliente
+const MongoStore = require('connect-mongo');//Salvar sessões na base de dados
+const flash = require('connect-flash');//Flash messages
+const routes = require('./routes');//Rotas
+const path = require('path');//Caminhos
+const helmet = require('helmet')//Recomendação do express
+const csrf = require('csurf')//Segurança nos formulários
+const {middlewareGlobal, checkCsrfError, csrfMiddleware }= require('./src/middlewares/middleware')//middlewares, funções que são executadas na rota
 
 app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json())
 app.use(express.static(path.resolve(__dirname, 'public')));
 
-const sessionOptions = session({
+const sessionOptions = session({//Configurações de sessão
   secret: 'jubileujubileu',
   store: MongoStore.create({ mongoUrl: process.env.CONNECTIONSTRING }),
   saveUninitialized: false,
@@ -36,7 +36,7 @@ const sessionOptions = session({
 app.use(sessionOptions);
 app.use(flash())
 
-app.set('views', path.resolve(__dirname, 'src', 'views'));
+app.set('views', path.resolve(__dirname, 'src', 'views'));//Arquivos que renderizamos na tela
 app.set('view engine', 'ejs');
 
 app.use(csrf());
