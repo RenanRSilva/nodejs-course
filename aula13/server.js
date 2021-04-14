@@ -11,7 +11,7 @@ mongoose.connect(process.env.CONNECTIONSTRING, {useNewUrlParser: true, useUnifie
 .catch(e => console.log(e))
 
 const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
+const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 
 const routes = require('./routes');
@@ -24,9 +24,9 @@ app.use(express.static(path.resolve(__dirname, 'public')));
 
 const sessionOptions = session({
   secret: 'jubileujubileu',
-  store: new MongoStore({ mongooseConnection: mongoose.connection}),
-  resave = false,
+  store: MongoStore.create({ mongoUrl: process.env.CONNECTIONSTRING }),
   saveUninitialized: false,
+  resave: false,
   cookie: {
     maxAge: 1000 * 60 * 60 * 24 * 7,
     httpOnly: true
