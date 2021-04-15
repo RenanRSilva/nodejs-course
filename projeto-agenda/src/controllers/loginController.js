@@ -13,7 +13,10 @@ exports.register = async (req, res) => {
     req.session.save(function(){
       res.redirect('back');
     });
+<<<<<<< HEAD
     return;
+=======
+>>>>>>> ab1111b77357490d00d5f3d5b71b753776573503
   }
   
   res.send(login.errors);
