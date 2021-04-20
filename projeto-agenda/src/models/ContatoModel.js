@@ -18,6 +18,12 @@ function Contato(body){
   this.contato = null
 }
 
+Contato.buscarPorId = function(id){
+  if(typeof id !== 'string') return;
+  const user = await ContatoModel.findById(id);
+  return user;
+};
+
 Contato.prototype.register = async function(){
   this.valida();
   if(this.errors.length > 0) return;
@@ -39,7 +45,12 @@ Contato.prototype.valida = function(){
     this.errors.push('A senha precisa ter entre 3 e 50 caracteres')
   }
 };
-
+Contato.prototype.edit = async function(id){
+  if(typeof id !== 'string') return;
+  this.valida();
+  if(this.errors.length > 0) return;
+  this.contato = await ContatoModel.findByIdAndUpdate(id, this.body, {new: true});
+};
 
 
 module.exports = Contato;
