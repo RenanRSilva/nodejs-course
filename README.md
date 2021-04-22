@@ -1,1 +1,1 @@
-# Estudando Studying NodeJS, Express, Npm, MongoDB, MVC pattern
+# Estudando NodeJS, Express, Npm, MongoDB, MVC pattern
